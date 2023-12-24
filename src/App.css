@@ -1,0 +1,68 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.likeButton {
+  position: relative;
+  color: rgb(231, 76, 60);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  outline: none;
+}
+
+.liked {
+  animation: heartBump 0.3s ease;
+}
+
+.likeButton .count {
+  color: white;
+}
+
+@keyframes heartBump {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hearts-container {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.heart-animation {
+  color: rgb(231, 76, 60);
+  position: absolute;
+  animation: rise-up 2s ease forwards;
+  bottom: 0;
+  left: 15%;
+  transform: translateX(-100%);
+}
+
+@keyframes rise-up {
+  0% {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(-50%);
+    opacity: 0;
+  }
+}
