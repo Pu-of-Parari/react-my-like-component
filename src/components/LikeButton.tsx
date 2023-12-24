@@ -1,10 +1,13 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState, FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import "./App.css";
+import "../App.css";
 
+interface HeartProps {
+  onRemove: () => void;
+}
 
-const Heart = ({ onRemove }: { onRemove: () => void }) => {
+const Heart: FC<HeartProps> = ({ onRemove }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onRemove();
@@ -16,19 +19,19 @@ const Heart = ({ onRemove }: { onRemove: () => void }) => {
   return <div className="heart-animation">♥</div>;
 };
 
-const LikeButton () => {
-  const [count, setCount] = useState(999);
-  const [liked, setLiked] = useState(false);
+const LikeButton: FC = () => {
+  const [count, setCount] = useState<number>(999);
+  const [liked, setLiked] = useState<boolean>(false);
   const [hearts, setHearts] = useState<ReactElement[]>([]);
 
   const addHeart = () => {
-    setCount(count + 1);
+    setCount((prevCount) => prevCount + 1);
     setLiked(true);
 
     const newHeart = (
       <Heart key={Date.now().toString()} onRemove={() => removeHeart()} />
     );
-    setHearts([...hearts, newHeart]);
+    setHearts((prevHearts) => [...prevHearts, newHeart]);
     setTimeout(() => setLiked(false), 300);
   };
 
@@ -39,13 +42,9 @@ const LikeButton () => {
     <span className="likeButton" onClick={addHeart}>
       <FontAwesomeIcon icon={faHeart} className={liked ? "liked" : ""} />
       <span className="count"> {count}</span>
-      <div className="heats-container">
-        {hearts.map((_, index) => (
-          <Heart key={index} onRemove={removeHeart} />
-        ))}
-      </div>
+      <div className="heats-container">{hearts}</div>
     </span>
   );
-}
+};
 
 export default LikeButton;
